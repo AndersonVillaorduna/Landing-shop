@@ -1,12 +1,20 @@
 // 👕 Product Types & Interfaces
 
 export type Category =
-  | "camisetas"
+  | "polerones"
+  | "polos"
+  | "blusas"
+  | "shorts"
+  | "vestidos y faldas"
   | "pantalones"
-  | "zapatos"
-  | "accesorios"
-  | "vestidos"
-  | "abrigos";
+  | "jeans"
+  | "chompas"
+  | "casacas y chalecos"
+  | "buzos"
+  | "medias"
+  | "camisas"
+  | "ropa interior"
+  | "otros";
 
 export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 

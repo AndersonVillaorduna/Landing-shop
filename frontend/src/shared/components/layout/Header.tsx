@@ -14,9 +14,9 @@ export const Header = () => {
   const cartItemsCount = useAppSelector(selectCartItemsCount);
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-700 shadow-lg">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-100 shadow-sm">
       <nav className="container-custom">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* 🏷️ Logo Elegante - Hilda Silva */}
           <Link to="/" className="flex items-center gap-3 group">
             {/* Logo SVG - Diseño limpio con gradiente rojo-rosa */}
@@ -28,7 +28,6 @@ export const Header = () => {
                 className="w-full h-full"
               >
                 <defs>
-                  {/* Gradiente Rojo a Rosa */}
                   <linearGradient
                     id="logoGradient"
                     x1="0%"
@@ -49,19 +48,15 @@ export const Header = () => {
                       style={{ stopColor: "#fda4af", stopOpacity: 1 }}
                     />
                   </linearGradient>
-
-                  {/* Sombra suave */}
                   <filter id="shadow">
                     <feDropShadow
                       dx="0"
                       dy="2"
-                      stdDeviation="3"
-                      floodOpacity="0.3"
+                      stdDeviation="2"
+                      floodOpacity="0.1"
                     />
                   </filter>
                 </defs>
-
-                {/* Círculo de fondo con gradiente */}
                 <circle
                   cx="28"
                   cy="28"
@@ -71,13 +66,8 @@ export const Header = () => {
                   style={{ transformOrigin: "center" }}
                   filter="url(#shadow)"
                 />
-
-                {/* Círculo interior blanco */}
                 <circle cx="28" cy="28" r="22" fill="white" />
-
-                {/* Corona decorativa superior */}
                 <g transform="translate(28, 14)">
-                  {/* Puntas de la corona */}
                   <path
                     d="M -4 0 L -2 -3 L 0 0 L 2 -3 L 4 0"
                     stroke="url(#logoGradient)"
@@ -86,7 +76,6 @@ export const Header = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                  {/* Base de la corona */}
                   <line
                     x1="-5"
                     y1="0"
@@ -97,8 +86,6 @@ export const Header = () => {
                     strokeLinecap="round"
                   />
                 </g>
-
-                {/* Letra H elegante */}
                 <g>
                   <path
                     d="M 16 22 L 16 38"
@@ -119,8 +106,6 @@ export const Header = () => {
                     strokeLinecap="round"
                   />
                 </g>
-
-                {/* Letra S elegante */}
                 <g>
                   <path
                     d="M 38 24 C 38 22, 36 20, 32 20 C 28 20, 28 22, 28 24 C 28 26, 30 28, 34 28 C 38 28, 40 30, 40 32 C 40 34, 38 36, 34 36 C 30 36, 28 34, 28 32"
@@ -130,22 +115,6 @@ export const Header = () => {
                     fill="none"
                   />
                 </g>
-
-                {/* Detalles decorativos - corazones pequeños */}
-                <circle
-                  cx="12"
-                  cy="40"
-                  r="1.5"
-                  fill="url(#logoGradient)"
-                  opacity="0.6"
-                />
-                <circle
-                  cx="44"
-                  cy="40"
-                  r="1.5"
-                  fill="url(#logoGradient)"
-                  opacity="0.6"
-                />
               </svg>
             </div>
 
@@ -153,48 +122,48 @@ export const Header = () => {
               <span className="text-2xl font-bold bg-gradient-to-r from-red-600 via-rose-500 to-pink-400 bg-clip-text text-transparent block leading-none tracking-tight">
                 Hilda Silva
               </span>
-              <span className="text-xs text-gray-400 tracking-widest font-light">
+              <span className="text-[10px] text-slate-400 tracking-[0.3em] font-medium uppercase mt-1 block">
                 BOUTIQUE
               </span>
             </div>
           </Link>
 
           {/* 📱 Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             <Link
               to="/"
-              className="text-gray-300 hover:text-white font-medium transition-colors relative group"
+              className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group py-2"
             >
               Inicio
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-400 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-500 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            <Link
+              to="/products/hombre"
+              className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group py-2"
+            >
+              Hombre
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-500 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            <Link
+              to="/products/mujer"
+              className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group py-2"
+            >
+              Mujer
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-500 group-hover:w-full transition-all duration-300"></span>
             </Link>
             <Link
               to="/products"
-              className="text-gray-300 hover:text-white font-medium transition-colors relative group"
+              className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group py-2"
             >
-              Productos
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-400 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-            <Link
-              to="/categories"
-              className="text-gray-300 hover:text-white font-medium transition-colors relative group"
-            >
-              Categorías
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-400 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-            <Link
-              to="/about"
-              className="text-gray-300 hover:text-white font-medium transition-colors relative group"
-            >
-              Nosotros
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-400 group-hover:w-full transition-all duration-300"></span>
+              Catálogo
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-500 group-hover:w-full transition-all duration-300"></span>
             </Link>
           </div>
 
           {/* 🛒 Cart & Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             {/* Search Icon */}
-            <button className="p-2 text-gray-300 hover:text-white transition-colors">
+            <button className="p-2 text-slate-500 hover:text-rose-500 transition-colors">
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -204,7 +173,7 @@ export const Header = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
@@ -213,7 +182,7 @@ export const Header = () => {
             {/* Cart Icon */}
             <Link
               to="/cart"
-              className="relative p-2 text-gray-300 hover:text-white transition-colors"
+              className="relative p-2 text-slate-500 hover:text-rose-500 transition-colors"
             >
               <svg
                 className="w-6 h-6"
@@ -224,12 +193,12 @@ export const Header = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
               {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute top-1 right-1 bg-rose-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {cartItemsCount}
                 </span>
               )}
@@ -237,7 +206,7 @@ export const Header = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
+              className="md:hidden p-2 text-slate-500 hover:text-rose-500 transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg
@@ -250,14 +219,14 @@ export const Header = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M6 18L18 6M6 6l12 12"
                   />
                 ) : (
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 )}
@@ -268,35 +237,47 @@ export const Header = () => {
 
         {/* 📱 Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-700 animate-slide-up">
-            <div className="flex flex-col gap-4">
+          <div className="md:hidden py-6 border-t border-stone-100 animate-slide-up bg-white">
+            <div className="flex flex-col gap-2">
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white font-medium py-2 transition-colors"
+                className="text-slate-600 hover:text-rose-600 font-medium py-3 px-4 transition-colors flex items-center justify-between rounded-xl hover:bg-rose-50/50"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Inicio
+                <span>Inicio</span>
+                <span className="text-[10px] text-slate-400 tracking-widest font-bold">
+                  HOME
+                </span>
+              </Link>
+              <Link
+                to="/products/hombre"
+                className="text-slate-600 hover:text-rose-600 font-medium py-3 px-4 transition-colors flex items-center justify-between rounded-xl hover:bg-rose-50/50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Hombre</span>
+                <span className="text-[10px] text-slate-400 tracking-widest font-bold">
+                  MEN
+                </span>
+              </Link>
+              <Link
+                to="/products/mujer"
+                className="text-slate-600 hover:text-rose-600 font-medium py-3 px-4 transition-colors flex items-center justify-between rounded-xl hover:bg-rose-50/50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Mujer</span>
+                <span className="text-[10px] text-slate-400 tracking-widest font-bold">
+                  WOMEN
+                </span>
               </Link>
               <Link
                 to="/products"
-                className="text-gray-300 hover:text-white font-medium py-2 transition-colors"
+                className="text-slate-600 hover:text-rose-600 font-medium py-3 px-4 transition-colors flex items-center justify-between rounded-xl hover:bg-rose-50/50"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Productos
-              </Link>
-              <Link
-                to="/categories"
-                className="text-gray-300 hover:text-white font-medium py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Categorías
-              </Link>
-              <Link
-                to="/about"
-                className="text-gray-300 hover:text-white font-medium py-2 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nosotros
+                <span>Catálogo Completo</span>
+                <span className="text-[10px] text-slate-400 tracking-widest font-bold">
+                  SHOP
+                </span>
               </Link>
             </div>
           </div>
