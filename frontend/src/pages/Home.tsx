@@ -9,7 +9,16 @@ import {
 import { ProductGrid } from "../features/products/components/ProductGrid";
 import { addToCart } from "../features/cart/store/cartSlice";
 import type { Product } from "../features/products/types/types";
-import { Button } from "../shared/components/ui";
+import { Button, HeroCarousel } from "../shared/components/ui";
+import { ProductModal } from "../features/products/components/ProductModal";
+import { useState } from "react";
+
+const HERO_IMAGES = [
+  "/src/assets/Tienda1.png",
+  "/src/assets/ropa1.jpg",
+  "/src/assets/ropa2.jpg",
+  "/src/assets/ropa3.jpg",
+];
 
 /**
  * 🏠 Home Page - Diseño Premium
@@ -20,6 +29,14 @@ const Home = () => {
   const featuredProducts = useAppSelector(selectFeaturedProducts);
   const newProducts = useAppSelector(selectNewProducts);
   const loading = useAppSelector((state) => state.products.loading);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     dispatch(initializeProducts());
@@ -55,14 +72,20 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       {/* 🎯 Hero Section - Diseño Sofisticado, Claro y Femenino */}
       <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden bg-stone-50">
-        {/* Fondo para Móvil (Imagen de tienda con overlay suave) */}
+        {/* Fondo para Móvil (Carrusel con overlay suave) */}
         <div className="absolute inset-0 lg:hidden z-0">
-          <img
-            src="/src/assets/Tienda1.png"
-            alt=""
-            className="w-full h-full object-cover opacity-20"
+          <HeroCarousel
+            images={HERO_IMAGES}
+            className="w-full h-full"
+            imageClassName="opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-50/80 via-stone-50/60 to-stone-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-50/90 via-stone-50/70 to-stone-50"></div>
+        </div>
+
+        {/* 🎨 Luxury Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-rose-100/30 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[10%] right-[0%] w-[35%] h-[35%] bg-amber-50/40 rounded-full blur-[100px]"></div>
         </div>
 
         {/* Fondo Detallado para Desktop */}
@@ -81,9 +104,23 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Columna Izquierda: Mensaje Principal */}
             <div className="text-center lg:text-left py-16 lg:py-0">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-light text-slate-900 mb-8 leading-tight tracking-tight">
+              {/* 🏷️ Boutique Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-rose-100 rounded-full mb-8 shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-500">
+                  Signature Collection{" "}
+                  <span className="text-rose-400 italic font-medium ml-1">
+                    2026
+                  </span>
+                </span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-playfair font-bold text-slate-900 mb-8 leading-[1.05] tracking-tight">
                 Elegancia en <br />
-                <span className="font-bold bg-gradient-to-r from-rose-500 via-rose-600 to-amber-600 bg-clip-text text-transparent">
+                <span className="text-luxury-gradient italic">
                   Cada Detalle
                 </span>
               </h1>
@@ -93,12 +130,12 @@ const Home = () => {
                 quienes valoran la sofisticación y la calidad atemporal.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
                 <Link to="/products" className="w-full sm:w-auto">
-                  <button className="w-full bg-slate-900 text-white hover:bg-slate-800 px-10 py-5 text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl shadow-slate-200">
-                    <span>Explorar Catálogo</span>
+                  <button className="w-full bg-slate-900 text-white hover:bg-rose-600 px-12 py-5 rounded-full boutique-button-shadow transition-all duration-500 flex items-center justify-center gap-3 group">
+                    <span className="text-lg font-bold">Explorar Catálogo</span>
                     <svg
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                      className="w-6 h-6 transform group-hover:translate-x-2 transition-transform duration-300"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -113,51 +150,23 @@ const Home = () => {
                   </button>
                 </Link>
                 <Link to="/products?filter=new" className="w-full sm:w-auto">
-                  <button className="w-full border border-slate-200 text-slate-800 hover:bg-white px-10 py-5 text-lg font-semibold transition-all duration-300">
+                  <button className="w-full border border-slate-200 text-slate-900 hover:bg-white hover:border-slate-300 px-12 py-5 rounded-full text-lg font-bold transition-all duration-300 backdrop-blur-sm">
                     Ver Colección
                   </button>
                 </Link>
               </div>
-
-              {/* Stats Refinados */}
-              <div className="flex justify-center lg:justify-start gap-8 md:gap-12 mt-20 border-t border-slate-200 pt-8">
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-slate-900">
-                    500+
-                  </div>
-                  <div className="text-slate-400 text-[10px] md:text-xs uppercase tracking-widest mt-1 font-bold">
-                    Modelos
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-slate-900">
-                    10K+
-                  </div>
-                  <div className="text-slate-400 text-[10px] md:text-xs uppercase tracking-widest mt-1 font-bold">
-                    Clientes
-                  </div>
-                </div>
-                <div className="hidden xs:block">
-                  <div className="text-xl md:text-2xl font-bold text-slate-900">
-                    4.9★
-                  </div>
-                  <div className="text-slate-400 text-[10px] md:text-xs uppercase tracking-widest mt-1 font-bold">
-                    Excelencia
-                  </div>
-                </div>
-              </div>
             </div>
 
-            {/* Columna Derecha: Imagen a Color (Sólo Desktop) */}
-            <div className="relative hidden lg:block h-[75vh]">
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-stone-50/5 to-stone-50 z-10"></div>
-              <img
-                src="/src/assets/Tienda1.png"
-                alt="Boutique Hilda Silva"
-                className="w-full h-full object-cover transition-all duration-700 shadow-2xl border-l border-white/40"
+            {/* Columna Derecha: Carrusel de Imágenes (Sólo Desktop) */}
+            <div className="relative hidden lg:block h-[80vh]">
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-stone-50/10 to-stone-50 z-10 pointer-events-none"></div>
+              <div className="absolute -inset-4 bg-rose-100/30 blur-2xl rounded-[3rem] -z-10"></div>
+              <HeroCarousel
+                images={HERO_IMAGES}
+                className="w-full h-full shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] border border-white/40"
               />
               {/* Decoración sutil */}
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 border-l border-b border-rose-500/20"></div>
+              <div className="absolute -bottom-8 -left-8 w-40 h-40 border-l border-b border-rose-500/20 rounded-bl-[3rem] -z-10"></div>
             </div>
           </div>
         </div>
@@ -192,6 +201,7 @@ const Home = () => {
           <ProductGrid
             products={newProducts.slice(0, 4)}
             onAddToCart={handleAddToCart}
+            onViewDetail={handleOpenModal}
           />
         </section>
       )}
@@ -226,54 +236,103 @@ const Home = () => {
             <ProductGrid
               products={featuredProducts.slice(0, 8)}
               onAddToCart={handleAddToCart}
+              onViewDetail={handleOpenModal}
             />
           </div>
         </section>
       )}
 
-      {/* 💎 Banner de Beneficios */}
-      <section className="container-custom py-24">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="group">
-            <div className="w-16 h-16 bg-stone-50 flex items-center justify-center text-3xl mb-6 group-hover:bg-rose-50 transition-colors duration-300">
-              🚚
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Envío Premium
-            </h3>
-            <p className="text-slate-500 leading-relaxed">
-              Disfruta de envío gratuito en pedidos superiores a $50 con empaque
-              exclusivo.
-            </p>
-          </div>
+      {/* 📍 Sección de Ubicación - Hilda Silva */}
+      <section className="bg-slate-900 text-white py-24 overflow-hidden relative">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-rose-500 rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500 rounded-full blur-[120px]"></div>
+        </div>
+        <div className="container-custom relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-rose-500 font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
+                Venta Presencial
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8 leading-tight">
+                Encuéntranos en el <br />
+                <span className="text-rose-100 italic">
+                  Corazón del Mercado
+                </span>
+              </h2>
+              <p className="text-slate-400 text-lg mb-10 leading-relaxed font-light">
+                Para brindarte una atención personalizada y que puedas apreciar
+                la calidad de nuestras telas, te esperamos en nuestro local
+                físico. Seleccionamos cada prenda pensando en ti.
+              </p>
 
-          <div className="group">
-            <div className="w-16 h-16 bg-stone-50 flex items-center justify-center text-3xl mb-6 group-hover:bg-rose-50 transition-colors duration-300">
-              🔄
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Garantía de Satisfacción
-            </h3>
-            <p className="text-slate-500 leading-relaxed">
-              Tienes 30 días para realizar cambios o devoluciones de forma
-              sencilla y rápida.
-            </p>
-          </div>
+              <div className="space-y-8">
+                <div className="flex items-start gap-6 group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-rose-500 transition-colors duration-300 flex-shrink-0 border border-white/5">
+                    📍
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl mb-1 text-white">
+                      Dirección
+                    </h4>
+                    <p className="text-slate-400 leading-relaxed">
+                      Ubicados dentro del Mercado Principal, Pasillo C, Local
+                      12. Ven a visitarnos y descubre tu próximo outfit.
+                    </p>
+                  </div>
+                </div>
 
-          <div className="group">
-            <div className="w-16 h-16 bg-stone-50 flex items-center justify-center text-3xl mb-6 group-hover:bg-rose-50 transition-colors duration-300">
-              💎
+                <div className="flex items-start gap-6 group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-amber-500 transition-colors duration-300 flex-shrink-0 border border-white/5">
+                    🛍️
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl mb-1 text-white">
+                      Modalidad de Venta
+                    </h4>
+                    <p className="text-slate-400 leading-relaxed">
+                      Venta exclusivamente presencial.{" "}
+                      <span className="text-rose-400 font-semibold underline decoration-rose-400/30 underline-offset-4">
+                        No realizamos delivery o envíos a domicilio.
+                      </span>{" "}
+                      ¡Te garantizamos la mejor experiencia en tienda!
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">
-              Atención Personalizada
-            </h3>
-            <p className="text-slate-500 leading-relaxed">
-              Nuestro equipo de estilistas está disponible para asesorarte en
-              cada compra.
-            </p>
+
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-rose-500 to-amber-500 rounded-[2rem] opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500"></div>
+              <div className="relative bg-slate-800 rounded-[2rem] overflow-hidden border border-white/10 aspect-video">
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-800/80 backdrop-blur-sm">
+                  <div className="text-center p-8">
+                    <div className="text-5xl mb-6 animate-bounce">🏢</div>
+                    <h3 className="text-xl font-bold mb-4">
+                      Nuestra Ubicación
+                    </h3>
+                    <p className="text-slate-400 mb-8 max-w-sm mx-auto">
+                      Acércate a nuestro local para probarte tus prendas
+                      favoritas y recibir asesoría de imagen.
+                    </p>
+                    <button className="bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all duration-300 shadow-xl shadow-white/5">
+                      Ver en Google Maps
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* 🪟 Product Detail Overlay */}
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddToCart={handleAddToCart}
+      />
     </div>
   );
 };

@@ -12,6 +12,7 @@ const initialState: CartState = {
   items: [],
   total: 0,
   itemsCount: 0,
+  isDrawerOpen: false,
 };
 
 const cartSlice = createSlice({
@@ -89,6 +90,14 @@ const cartSlice = createSlice({
       state.items = action.payload;
       recalculateTotals(state);
     },
+
+    // 🪟 Control del Drawer
+    toggleDrawer: (state) => {
+      state.isDrawerOpen = !state.isDrawerOpen;
+    },
+    closeDrawer: (state) => {
+      state.isDrawerOpen = false;
+    },
   },
 });
 
@@ -115,6 +124,8 @@ export const {
   updateQuantity,
   clearCart,
   loadCartFromStorage,
+  toggleDrawer,
+  closeDrawer,
 } = cartSlice.actions;
 
 // 📥 Export reducer
@@ -125,3 +136,5 @@ export const selectCartItems = (state: { cart: CartState }) => state.cart.items;
 export const selectCartTotal = (state: { cart: CartState }) => state.cart.total;
 export const selectCartItemsCount = (state: { cart: CartState }) =>
   state.cart.itemsCount;
+export const selectIsCartDrawerOpen = (state: { cart: CartState }) =>
+  state.cart.isDrawerOpen;

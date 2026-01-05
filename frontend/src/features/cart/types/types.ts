@@ -13,4 +13,5 @@ export interface CartState {
   items: CartItem[];
   total: number;
   itemsCount: number;
+  isDrawerOpen: boolean;
 }

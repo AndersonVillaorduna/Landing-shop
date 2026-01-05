@@ -1,7 +1,7 @@
 /* ====================================
    🎨 Google Fonts - Inter (Profesional)
    ==================================== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 
 @import "tailwindcss";
 
@@ -10,9 +10,11 @@
    ==================================== */
 :root {
   /* Colores */
-  --color-primary: 99 102 241; /* rgb(99 102 241) = #6366f1 */
-  --color-secondary: 236 72 153; /* rgb(236 72 153) = #ec4899 */
-  --color-accent: 245 158 11; /* rgb(245 158 11) = #f59e0b */
+  --color-primary: 30 41 59; /* slate-800 */
+  --color-secondary: 225 29 72; /* rose-600 */
+  --color-accent: 251 191 36; /* amber-400 */
+  --color-boutique: 255 241 242; /* rose-50 */
+  --color-luxury-gold: 180 142 84; /* Goldish */
 
   /* Backgrounds */
   --bg-primary: 255 255 255;
@@ -99,8 +101,27 @@ body {
 }
 
 .card-hover:hover {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  transform: translateY(-0.25rem);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.1);
+  transform: translateY(-0.5rem);
+}
+
+.font-luxury {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
+.text-luxury-gradient {
+  background: linear-gradient(135deg, #e11d48 0%, #fb7185 50%, #fda4af 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.boutique-button-shadow {
+  box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.2);
 }
 
 /* Scrollbar personalizado */
@@ -137,20 +158,50 @@ body {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.8s ease-out;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Line clamp utilities */
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

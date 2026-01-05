@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 interface ProductCardProps {
   product: Product;
   onAddToCart?: (product: Product) => void;
+  onViewDetail?: (product: Product) => void;
 }
 
 /**
@@ -15,6 +16,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onAddToCart,
+  onViewDetail,
 }) => {
   const hasDiscount =
     product.originalPrice && product.originalPrice > product.price;
@@ -55,16 +57,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             )}
           </div>
 
-          {/* Overlay con botón */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          {/* Overlay con botones */}
+          <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-4">
             <button
               onClick={(e) => {
                 e.preventDefault();
                 onAddToCart?.(product);
               }}
-              className="bg-white text-gray-900 px-6 py-3 rounded-full font-semibold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 hover:bg-gray-100"
+              className="w-48 bg-white text-slate-900 py-3 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-rose-500 hover:text-white"
             >
               🛒 Añadir al Carrito
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onViewDetail?.(product);
+              }}
+              className="w-48 bg-slate-900/80 backdrop-blur-md text-white py-3 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-slate-900"
+            >
+              👁️ Ver Detalles
             </button>
           </div>
         </Link>

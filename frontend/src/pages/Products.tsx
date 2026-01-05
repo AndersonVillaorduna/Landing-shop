@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../shared/hooks/useRedux";
 import {
@@ -11,6 +11,7 @@ import {
 import { ProductGrid } from "../features/products/components/ProductGrid";
 import { addToCart } from "../features/cart/store/cartSlice";
 import type { Product } from "../features/products/types/types";
+import { ProductModal } from "../features/products/components/ProductModal";
 
 /**
  * 🛍️ Products Page
@@ -25,6 +26,14 @@ const Products = () => {
   const loading = useAppSelector(selectProductsLoading);
   const currentFilters = useAppSelector(selectFilters);
   const filter = searchParams.get("filter");
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     dispatch(initializeProducts());
@@ -240,7 +249,11 @@ const Products = () => {
           {/* Grid de Productos */}
           <main className="flex-1">
             {products.length > 0 ? (
-              <ProductGrid products={products} onAddToCart={handleAddToCart} />
+              <ProductGrid
+                products={products}
+                onAddToCart={handleAddToCart}
+                onViewDetail={handleOpenModal}
+              />
             ) : (
               <div className="text-center py-32 bg-stone-50 rounded-[2rem] border-2 border-dashed border-stone-200">
                 <div className="text-4xl mb-4">🍂</div>
@@ -256,6 +269,14 @@ const Products = () => {
           </main>
         </div>
       </div>
+
+      {/* 🪟 Product Detail Overlay */}
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddToCart={handleAddToCart}
+      />
     </div>
   );
 };

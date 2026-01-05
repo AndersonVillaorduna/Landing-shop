@@ -13,10 +13,12 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* 🏢 About */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
-              <span className="text-2xl font-serif font-bold bg-gradient-to-r from-red-600 via-rose-500 to-pink-400 bg-clip-text text-transparent">
-                Hilda Silva
-              </span>
+            <Link to="/" className="flex items-center group">
+              <img
+                src="/src/assets/Logo.jpg"
+                alt="Hilda Silva Logo"
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
             <p className="text-sm leading-relaxed text-slate-500 font-light">
               Boutique exclusiva dedicada a la elegancia y sofisticación de la
@@ -49,6 +51,14 @@ export const Footer = () => {
                   className="hover:text-rose-600 transition-colors"
                 >
                   Hombre
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/ninos"
+                  className="hover:text-rose-600 transition-colors"
+                >
+                  Niños
                 </Link>
               </li>
               <li>
